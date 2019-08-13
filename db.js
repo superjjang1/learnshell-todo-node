@@ -10,6 +10,7 @@ const db = pgp({
     database: process.env.DB_NAME
     
 });
-console.log('Yay, you did the thing, wow');
+
+console.log('yay you did the thing.');
 
 module.exports = db;

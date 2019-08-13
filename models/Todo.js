@@ -1,24 +1,22 @@
 const db = require('../db.js');
-
+console.log('something');
 function getAll(){
-    function getAll() {
-        db.one(`
-            select * from todos where id=$1
-        `,[id])
-            .then((data)=>{
+        return db.any(`
+            select * from todos
+        `)
+            // .then((data)=>{
         
-                console.log('here is the data:');
-                console.log(data);
+            //     console.log('here is the data:');
+            //     console.log(data);
         
-        })
+        // })
             .catch((err)=>{
-           log("NOOOOoOoooOOoOOoOO.");
+             console.log("NOOOOoOoooOOoOOoOO.");
              console.log(err);
         });
     
-    }
+    };
 
-};
 function getOne(id) {
     db.one(`
         select * from todos where id=$1
@@ -30,14 +28,18 @@ function getOne(id) {
     
     })
         .catch((err)=>{
-       log("NOOOOoOoooOOoOOoOO.");
+         console.log("NOOOOoOoooOOoOOoOO.");
          console.log(err);
     });
 
 };
+
+getAll();
+
+
 module.exports = {
     //this is the same as getAll:getAll since keyname and value are the same
 
     getAll,
-    getOne
+    getOne,
 };
