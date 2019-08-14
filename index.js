@@ -10,6 +10,10 @@ const port = 3000;
 // const server = http.createServer((req, res)=>{
     //replace with app.get()
 app.get('/todos', (req, res)=>{
+    //adds a programatic breakpoint
+    //for the chrome dev tools
+    
+    // debugger;
     console.log("You've got a request");
     const allTodos = Todo.getAll();
     allTodos
@@ -39,7 +43,7 @@ app.get('/todos/:taskId',(req, res)=>{
             console.log('new data');
             console.log(data);
             res.json(data);
-        } )
+        })
 
 });
 // server.listen(3000);
