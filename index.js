@@ -24,6 +24,25 @@ app.get('/todos', (req, res)=>{
     // res.end(allTodos);
 });
 
+
+app.get('/todos/:taskId',(req, res)=>{
+    console.log("you asked for a specific task");
+    console.log(req.params.taskId);
+    //convert the route param to a number
+    //and make sure it's in base 10
+    const theId = parseInt(req.params.taskId, 10);
+    console.log(theId);
+    const oneTodo = Todo.getOne(theId);
+    console.log(oneTodo);
+    oneTodo
+        .then((data)=>{
+            console.log('new data');
+            console.log(data);
+            res.json(data);
+        } )
+
+});
+// server.listen(3000);
 app.listen(port);
 
 

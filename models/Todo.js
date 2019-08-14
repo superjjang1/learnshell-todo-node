@@ -18,15 +18,15 @@ function getAll(){
     };
 
 function getOne(id) {
-    db.one(`
+    return db.one(`
         select * from todos where id=$1
     `,[id])
-        .then((data)=>{
+    //     .then((data)=>{
     
-            console.log('here is the data:');
-            console.log(data);
+    //         console.log('here is the data:');
+    //         console.log(data);
     
-    })
+    // })
         .catch((err)=>{
          console.log("NOOOOoOoooOOoOOoOO.");
          console.log(err);
