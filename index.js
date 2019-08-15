@@ -46,23 +46,17 @@ app.get('/todos/:taskId',(req, res)=>{
             res.json(data);
         })
 });
-app.get('/users',(req, res)=>{
+app.get('/users',async (req, res)=>{
     console.log('request user has happened');
-    const allUsers = users.getAll();
-    allUsers
-        .then((data)=>{
-            console.log(data);
-            res.json(data);
-        });
+    const allUsers = await users.getAll();
+    res.json(allUsers);
 });
-app.get('/users/:userId',(req,res)=>{
-    console.log('ask for specific user');
-    console.log(req.params.userId);
+
+app.get('/users/:userId',async (req,res)=>{
+    
     const theId = parseInt(req.params.userId, 10);
-    console.log(theId);
-    const oneUser = users.getOne(theId);
-    oneUser.then((data)=>{ res.json(data);
-        });
+    const oneUser = await users.getOne(theId);
+    res.json(oneUser);
     });
 // server.listen(3000);
 app.listen(port);
