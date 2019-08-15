@@ -7,6 +7,8 @@ const users = require('./models/User');
 const app = express();
 //create a variable for the port number
 const port = 3000;
+//use the urlEncoded middleware to read post bodies
+app.use(express.urlencoded({extended: true}));
 
 // const server = http.createServer((req, res)=>{
     //replace with app.get()
@@ -60,10 +62,16 @@ app.get('/users/:userId',async (req,res)=>{
     });
 
 
-app.post('/users/', (req, res)=>{
+app.post('/users/', async (req, res)=>{
     console.log('post request');
     //.send is different from .end()
-    res.send('goodjob');
+    const newUserInfo = await users.createUser({
+        displayname: "buttttterfinger",
+        username: "biteintoa"
+    });
+    res.json(newUserInfo);
+    console.log('here is the body');
+    console.log(req.body);
 });
 
 

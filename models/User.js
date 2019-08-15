@@ -47,12 +47,12 @@ async function createUser({displayname, username}) {
         (displayname, username)
     values($1,$2)
 
-    returning id
+    returning *
 
     `, [displayname,username]);
     console.log(newUserInfo);
 
-    return id;
+    return newUserInfo;
 }
 
 
