@@ -57,4 +57,4 @@ async function createUser({displayname, username}) {
 
 
 // serve.
-module.exports = {getAll, getOne};
+module.exports = {getAll, getOne, createUser};

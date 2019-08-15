@@ -58,6 +58,16 @@ app.get('/users/:userId',async (req,res)=>{
     const oneUser = await users.getOne(theId);
     res.json(oneUser);
     });
+
+
+app.post('/users/', (req, res)=>{
+    console.log('post request');
+    //.send is different from .end()
+    res.send('goodjob');
+});
+
+
+
 // server.listen(3000);
 app.listen(port);
 
