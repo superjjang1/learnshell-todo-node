@@ -13,24 +13,13 @@ function getAll(){
 };
 
 
-function getOne(id){
-    return db.one(`
-    select * from users where id=$1`,[id])
-    .then((user)=>{
-        //get the todos for the user
-        const todos = db.any(`
-        select * from todos where user_id = $1`, [id])
-    .then((todosForUser)=>{
-        console.log(todosForUser);
-        user.todos = todosForUser;
-        return user;
-    })
-    return todos;
-    })
-    .catch((err)=>{
-        console.log('Oh No, no user');
-        console.log(err);
-    });
+async function getOne(id){
+    const user = await db.one(`
+    select * from users where id=$1`,[id]);
+    const todosForUser = await db.any(`
+    select * from todos where user_id=$1`, [id]);
+    user. todos = todosForUser;
+    return user;
 };
 
 
