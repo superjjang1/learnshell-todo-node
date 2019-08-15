@@ -9,6 +9,10 @@ const app = express();
 const port = 3000;
 //use the urlEncoded middleware to read post bodies
 app.use(express.urlencoded({extended: true}));
+app.use((req, res, next) => {
+    console.log(req.url);
+    next();
+});
 
 // const server = http.createServer((req, res)=>{
     //replace with app.get()
@@ -65,13 +69,24 @@ app.get('/users/:userId',async (req,res)=>{
 app.post('/users/', async (req, res)=>{
     console.log('post request');
     //.send is different from .end()
-    const newUserInfo = await users.createUser({
-        displayname: "buttttterfinger",
-        username: "biteintoa"
-    });
+    const newUserInfo = await users.createUser(req.body
+    //     {
+    //     displayname: req.body.displayname,
+    //     username: req.body.username
+        
+    // }
+    );
     res.json(newUserInfo);
     console.log('here is the body');
     console.log(req.body);
+});
+
+app.post('/users/:userId/todos', async (req, res)=>{
+    const exUserTask = await users.createUserTodo(req.body);
+    res.send(exUserTask);
+    console.log(req.body.exUserTask);
+    console.log('above is post')
+    
 });
 
 

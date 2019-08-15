@@ -53,8 +53,13 @@ async function createUser({displayname, username}) {
     console.log(newUserInfo);
 
     return newUserInfo;
-}
+};
 
+async function createUserTodo({priority,task, user_id}) {
+    const newUserTask = await db.one(` insert into todos (priority,task) values ($1,$2) returning *`, [priority, task])
+    console.log(newUserTask);
+    return newUserTask;
+};
 
 // serve.
-module.exports = {getAll, getOne, createUser};
+module.exports = {getAll, getOne, createUser, createUserTodo};
