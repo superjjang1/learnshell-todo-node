@@ -5,10 +5,11 @@ const db = require('../db.js');
 //cook.
 async function getAll(){
     const users = await db.any(`select * from users`);
+    console.log(users);
     const allTodos = users.map(async user =>{
         const userTodos = await db.any(`select * from todos where user_id = $1`,[user.id]);
         user.todos = userTodos;
-        return users;
+        return user;
 })
     const arrayOfUsersWithTodos = await Promise.all(allTodos);
     return arrayOfUsersWithTodos;
@@ -32,6 +33,27 @@ async function getOne(id){
          };
      }
 };
+
+//accept an object argument so that we have flexibility later on.
+//that is we can add more database columns
+//without having to update all of our function calls.
+//whens someone calls this, they do not have to know we're destructuring.
+
+
+async function createUser({displayname, username}) {
+    // const {displayname, username} = userDataObj;
+    const newUserInfo = await db.one(`
+    insert into users
+        (displayname, username)
+    values($1,$2)
+
+    returning id
+
+    `, [displayname,username]);
+    console.log(newUserInfo);
+
+    return id;
+}
 
 
 // serve.
