@@ -2,6 +2,7 @@
 //replace http with express
 const express = require('express');
 const Todo = require('./models/Todo');
+const users = require('./models/User');
 //create the server and call it 'app'
 const app = express();
 //create a variable for the port number
@@ -44,8 +45,25 @@ app.get('/todos/:taskId',(req, res)=>{
             console.log(data);
             res.json(data);
         })
-
 });
+app.get('/users',(req, res)=>{
+    console.log('request user has happened');
+    const allUsers = users.getAll();
+    allUsers
+        .then((data)=>{
+            console.log(data);
+            res.json(data);
+        });
+});
+app.get('/users/:userId',(req,res)=>{
+    console.log('ask for specific user');
+    console.log(req.params.userId);
+    const theId = parseInt(req.params.userId, 10);
+    console.log(theId);
+    const oneUser = users.getOne(theId);
+    oneUser.then((data)=>{ res.json(data);
+        });
+    });
 // server.listen(3000);
 app.listen(port);
 
