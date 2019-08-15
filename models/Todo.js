@@ -1,37 +1,20 @@
 const db = require('../db.js');
 console.log('something');
-function getAll(){
-        return db.any(`
+
+
+
+async function getAll(){
+        const todos = await db.any(`
             select * from todos
         `)
-            // .then((data)=>{
-        
-            //     console.log('here is the data:');
-            //     console.log(data);
-        
-        // })
-            .catch((err)=>{
-             console.log("NOOOOoOoooOOoOOoOO.");
-             console.log(err);
-        });
-    
+        return todos; 
     };
 
-function getOne(id) {
-    return db.one(`
+async function getOne(id) {
+    const todosForOne = await db.one(`
         select * from todos where id=$1
     `,[id])
-    //     .then((data)=>{
-    
-    //         console.log('here is the data:');
-    //         console.log(data);
-    
-    // })
-        .catch((err)=>{
-         console.log("NOOOOoOoooOOoOOoOO.");
-         console.log(err);
-    });
-
+    return todosForOne;
 };
 
 getAll();
