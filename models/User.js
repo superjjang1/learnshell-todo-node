@@ -4,12 +4,14 @@ const db = require('../db.js');
 
 //cook.
 async function getAll(){
-    const users = await db.any(`
-    select * from users`)
-    const allTodos = await db.any(`
-    select * from todos`);
-    users.todos = allTodos;
-    return users;
+    const users = await db.any(`select * from users`);
+    const allTodos = users.map(async user =>{
+        const userTodos = await db.any(`select * from todos where user_id = $1`,[user.id]);
+        user.todos = userTodos;
+        return users;
+})
+    const arrayOfUsersWithTodos = await Promise.all(allTodos);
+    return arrayOfUsersWithTodos;
 };
 
 
