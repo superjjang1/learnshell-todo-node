@@ -4,17 +4,31 @@ console.log('something');
 
 
 async function getAll(){
-        const todos = await db.any(`
+    try {
+        return await db.any(`
             select * from todos
         `)
-        return todos; 
+    }
+        catch(error){
+            console.log(error);
+            return [];
+        } 
     };
 
 async function getOne(id) {
-    const todosForOne = await db.one(`
-        select * from todos where id=$1
-    `,[id])
-    return todosForOne;
+    try {
+        const todosForOne = await db.one(`
+            select * from todos where id=$1
+        `,[id])
+        return todosForOne;
+
+    }catch(error){
+        console.log('there was an issue')
+        console.log(error);
+        return{
+            id:0
+        }
+    }
 };
 
 getAll();
