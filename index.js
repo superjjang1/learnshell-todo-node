@@ -82,11 +82,10 @@ app.post('/users/', async (req, res)=>{
 });
 
 app.post('/users/:userId/todos', async (req, res)=>{
-    const exUserTask = await users.createUserTodo(req.body);
-    res.send(exUserTask);
-    console.log(req.body.exUserTask);
+    const exUserTask = await users.createUserTodo(req);
+    res.json(exUserTask.id);
     console.log('above is post')
-    
+     
 });
 
 

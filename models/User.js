@@ -55,8 +55,10 @@ async function createUser({displayname, username}) {
     return newUserInfo;
 };
 
-async function createUserTodo({priority,task, user_id}) {
-    const newUserTask = await db.one(` insert into todos (priority,task) values ($1,$2) returning *`, [priority, task])
+async function createUserTodo(req) {
+    const {priority, task} = req.body;
+    const userId = parseInt(req.params.userId);
+    const newUserTask = await db.one(` insert into todos (priority,task, user_id) values ($1,$2,$3) returning id`, [priority, task, userId])
     console.log(newUserTask);
     return newUserTask;
 };
