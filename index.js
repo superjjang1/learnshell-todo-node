@@ -5,6 +5,8 @@ const Todo = require('./models/Todo');
 const users = require('./models/User');
 //create the server and call it 'app'
 const app = express();
+const { sanitizeBody } = require('express-validator');
+
 //create a variable for the port number
 const port = 3000;
 //use the urlEncoded middleware to read post bodies
@@ -66,7 +68,7 @@ app.get('/users/:userId',async (req,res)=>{
     });
 
 
-app.post('/users/', async (req, res)=>{
+app.post('/users/', [sanitizeBody('username').escape(), sanitizeBody('displayname').escape()], async (req, res)=>{
     console.log('post request');
     //.send is different from .end()
     const newUserInfo = await users.createUser(req.body
