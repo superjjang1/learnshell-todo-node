@@ -4,11 +4,26 @@ const express = require('express');
 const Todo = require('./models/Todo');
 const users = require('./models/User');
 //create the server and call it 'app'
-const app = express();
 const { sanitizeBody } = require('express-validator');
+const es6Renderer = require('express-es6-template-engine');
+
+const app = express();
+app.engine('html', es6Renderer);
+app.set('views','views');
+app.set('view engine', 'html');
+
 
 //create a variable for the port number
 const port = 3000;
+
+app.get('/', (req,res)=>{
+    res.render('index',{locals: {
+        message:"It is time for lunch"
+    }, partials: {
+        navbar: './navbar'
+    }
+});
+});
 //use the urlEncoded middleware to read post bodies
 app.use(express.urlencoded({extended: true}));
 app.use((req, res, next) => {
