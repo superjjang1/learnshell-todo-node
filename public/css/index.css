@@ -1,0 +1,23 @@
+h1 {
+    color: blue;
+}
+
+.help {
+    color: royalblue;
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+}
+body {
+    color: greenyellow;
+}
+
+li {
+    list-style: none;
+}
+body {
+    background-color: red;
+    font-family: 'roboto', sans-serif;
+    padding: 0 3rem 0 3rem;
+    text-align: center;
+}

@@ -16,6 +16,7 @@ async function getAll(){
     };
 
 async function getOne(id) {
+
     try {
         const todosForOne = await db.one(`
             select * from todos where id=$1
@@ -29,9 +30,23 @@ async function getOne(id) {
             id:0
         }
     }
-};
+}
 
-getAll();
+function create(userId, todoObj) {
+    const { task } = todoObj;
+    const todoId = db.one(`
+        insert into todos 
+            (priority, task, user_id)
+        values 
+            (1, $2, $1)
+    
+        returning id        
+    `, [userId, task]);
+
+    return todoId;
+}
+
+
 
 
 module.exports = {
@@ -39,4 +54,5 @@ module.exports = {
 
     getAll,
     getOne,
+    create
 };

@@ -55,13 +55,7 @@ async function createUser({displayname, username}) {
     return newUserInfo;
 };
 
-async function createUserTodo(req) {
-    const {priority, task} = req.body;
-    const userId = parseInt(req.params.userId);
-    const newUserTask = await db.one(` insert into todos (priority,task, user_id) values ($1,$2,$3) returning id`, [priority, task, userId])
-    console.log(newUserTask);
-    return newUserTask;
-};
+
 
 // serve.
-module.exports = {getAll, getOne, createUser, createUserTodo};
+module.exports = {getAll, getOne, createUser};
